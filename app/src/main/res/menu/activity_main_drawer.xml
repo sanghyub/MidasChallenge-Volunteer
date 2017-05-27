@@ -3,7 +3,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_VRecord"
+            android:id="@+id/nav_vRecord"
             android:title="활동 내역" />
         <item
             android:id="@+id/nav_dRecord"

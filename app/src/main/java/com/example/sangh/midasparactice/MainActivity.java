@@ -1,5 +1,7 @@
 package com.example.sangh.midasparactice;
 
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -8,26 +10,34 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.sangh.midasparactice.Adapter.DbAdapter;
 import com.example.sangh.midasparactice.Adapter.TabPagerAdapter;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private  NavigationView mNavigationView;
+    private DrawerLayout mDrawerLayout ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DbAdapter.getInstance(this).open();
+
         // Adding Toolbar to the activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        mDrawerLayout =(DrawerLayout)findViewById(R.id.drawer_layout);
         // Initializing the TabLayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Volunteer"));
@@ -43,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
+        dummy();
         // Set TabSelectedListener
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
@@ -92,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.action_settings) {
             return true;
         }
+        else if(id==android.R.id.home){
+            mDrawerLayout.openDrawer(Gravity.START);
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -102,23 +118,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
+        if (id == R.id.nav_vRecord) {
+           Intent intent =new Intent(getApplicationContext(), MyVolunteerListActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_dRecord) {
+            Intent intent = new Intent(getApplicationContext(), MyDonationListActivitiy.class);
+            startActivity(intent);
+        }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void dummy(){
+        DbAdapter.getInstance(this).open();
+        DbAdapter.getInstance().createVolunteer(Dummy.vol1_title, BitmapFactory.decodeResource(this.getResources(), R.drawable.vol1), 1200, Dummy.vol1_comments, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
+        DbAdapter.getInstance().createVolunteer(Dummy.vol2_title, BitmapFactory.decodeResource(this.getResources(), R.drawable.vol2), 2000, Dummy.vol2_comments, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
+        DbAdapter.getInstance().createVolunteer(Dummy.vol3_title, BitmapFactory.decodeResource(this.getResources(), R.drawable.vol3), 2000, Dummy.vol3_comments, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
+        DbAdapter.getInstance().createVolunteer(Dummy.vol4_title, BitmapFactory.decodeResource(this.getResources(), R.drawable.vol4), 1500, Dummy.vol4_comments, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
+        DbAdapter.getInstance().createVolunteer(Dummy.vol5_title, BitmapFactory.decodeResource(this.getResources(), R.drawable.vol5), 1300, Dummy.vol5_comments, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
+
+        DbAdapter.getInstance().createDonation(Dummy.don1_title,0, 200, Dummy.don1_contents, "history1");
+        DbAdapter.getInstance().createDonation(Dummy.don2_title,0, 400, Dummy.don2_contents, "history2");
+        DbAdapter.getInstance().createDonation(Dummy.don3_title,0, 500, Dummy.don3_contents, "history3");
+        DbAdapter.getInstance().createDonation(Dummy.don4_title,0, 400, Dummy.don4_contents, "history2");
+        DbAdapter.getInstance().createDonation(Dummy.don5_title,0, 500, Dummy.don5_contents, "history3");
     }
 }
 

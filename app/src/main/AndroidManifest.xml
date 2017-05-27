@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".MyDonationListActivitiy"
+                  android:theme="@style/AppTheme">
+        </activity>
+        <activity android:name=".MyVolunteerListActivity"
+                  android:theme="@style/AppTheme"></activity>
         <activity android:name=".DonationDetailActivity"></activity>
         <activity android:name=".VolunteerDetailActivity"></activity>
 

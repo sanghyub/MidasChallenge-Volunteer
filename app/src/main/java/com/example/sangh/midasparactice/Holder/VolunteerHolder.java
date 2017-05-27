@@ -25,8 +25,6 @@ public class VolunteerHolder  extends BaseViewHolder<Volunteer> implements View.
     private Context mContext;
     private TextView title;
     private TextView date;
-    private TextView contents;
-    private Button mButton;
     private ImageView img;
 
 
@@ -37,7 +35,6 @@ public class VolunteerHolder  extends BaseViewHolder<Volunteer> implements View.
         title = (TextView)itemView.findViewById(R.id.volunteer_title);
         img = (ImageView) itemView.findViewById(R.id.volunteer_image);
         date = (TextView) itemView.findViewById(R.id.volunteer_date);
-        mButton =(Button) itemView.findViewById(R.id.volunteer_btn);
     }
 
     @Override
@@ -45,37 +42,20 @@ public class VolunteerHolder  extends BaseViewHolder<Volunteer> implements View.
         mVolunteer=volunteer;
         title.setText(volunteer.getTitle());
         date.setText(DbAdapter.getInstance().DateToString(volunteer.getStartDate()) +" ~ " + DbAdapter.getInstance().DateToString(volunteer.getEndDate()));
-        //date.setText("2017-05-24"+ " ~ " + "2017-05-27");
-        //img.setImageBitmap(volunteer.getImg());
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, "신청하기", Toast.LENGTH_SHORT).show();
-                volunteer.setJoin(true);
-            }
-        });
-
-        if(volunteer.isJoin()){
-            mButton.setText("참여중");
-            mButton.setBackgroundColor(Color.rgb(0,86,255));
-            mButton.setEnabled(false);
-        }
-        else{
-            mButton.setText("신청하기");
-            mButton.setEnabled(true);
-            volunteer.setJoin(false);
-        }
+        img.setImageBitmap(volunteer.getImg());
     }
 
     @Override
     public void onClick(View v) {
         Intent intent =new Intent(mContext, VolunteerDetailActivity.class);
+        intent.putExtra("number", mVolunteer.getNumber());
         intent.putExtra("title", mVolunteer.getTitle());
-        //intent.putExtra("img", mVolunteer.getImg());
+        intent.putExtra("img", mVolunteer.getImg());
         intent.putExtra("startDate", DbAdapter.getInstance().DateToString(mVolunteer.getStartDate()));
         intent.putExtra("endDate", DbAdapter.getInstance().DateToString(mVolunteer.getEndDate()));
         intent.putExtra("contents", mVolunteer.getContents());
         intent.putExtra("point", mVolunteer.getPoint());
+        intent.putExtra("join",mVolunteer.isJoin());
         mContext.startActivity(intent);
     }
 }

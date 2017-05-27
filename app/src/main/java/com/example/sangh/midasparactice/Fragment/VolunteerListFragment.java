@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sangh.midasparactice.Adapter.DbAdapter;
 import com.example.sangh.midasparactice.Adapter.VolunteerAdapter;
+import com.example.sangh.midasparactice.Dummy;
 import com.example.sangh.midasparactice.Model.Donation;
 import com.example.sangh.midasparactice.Model.Volunteer;
 import com.example.sangh.midasparactice.R;
@@ -30,11 +32,6 @@ public class VolunteerListFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
-       long testnum = DbAdapter.getInstance().createVolunteer("title1", BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher), 300, "content1", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
-        testnum = DbAdapter.getInstance().createVolunteer("title2", BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher), 200, "content2", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
-        testnum = DbAdapter.getInstance().createVolunteer("title3", BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher), 100, "content3", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
-
     }
 
     @Override

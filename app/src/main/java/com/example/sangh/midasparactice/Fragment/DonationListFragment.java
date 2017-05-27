@@ -30,9 +30,6 @@ public class DonationListFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        long testnum = DbAdapter.getInstance().createDonation("title1",100, 300, "content1", "history1");
-        testnum = DbAdapter.getInstance().createDonation("title2",200, 400, "content2", "history2");
-        testnum = DbAdapter.getInstance().createDonation("title3",300, 500, "content3", "history3");
     }
 
     @Override
