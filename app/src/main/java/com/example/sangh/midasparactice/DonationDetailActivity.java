@@ -16,6 +16,7 @@ public class DonationDetailActivity extends AppCompatActivity {
     private TextView dTotalPoint;
     private Bitmap dImage;
     private String title;
+
     private String contents;
     private int totalPoint;
     private String history;
@@ -43,8 +44,6 @@ public class DonationDetailActivity extends AppCompatActivity {
         dPoint.setText(point+"");
         dTotalPoint.setText(totalPoint+"");
         //dContent.setText(contents);
-
-
 
     }
 }
