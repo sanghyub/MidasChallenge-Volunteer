@@ -92,7 +92,7 @@ public class DbAdapter {
     private final Context mCtx; // ?
 
     private static long lastVId, lastDId, lastUId;
-    private static final SimpleDateFormat dbDataFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private static final SimpleDateFormat dbDataFormat = new SimpleDateFormat("yyyy/MM/dd");
 
     private static DbAdapter mInstance = null;
 
@@ -141,11 +141,18 @@ public class DbAdapter {
         mDbHelper.close();
     }
 
-    public String saveBitmaptoJpeg(Bitmap bitmap, String folder, String name){
+    public String saveBitmaptoPng(Bitmap image, String folder, String name){
         Boolean isSave = false;
-        String folderDir = mCtx.getApplicationContext().getFilesDir().getAbsolutePath()+folder;
+        String folderDir = mCtx.getFilesDir().getAbsolutePath()+folder;
         String file_name = name+".png";
+        int minImageSize = 118;
 
+
+        int scale = 1;
+        if( image.getHeight() > minImageSize || image.getWidth() > minImageSize ) {
+            scale = (int)Math.pow(  2,  (int)Math.round( Math.log( minImageSize / (double)Math.max( image.getHeight(), image.getWidth() ) ) / Math.log( 0.5 ) ) );
+        }
+        Bitmap newImage = Bitmap.createScaledBitmap(image, image.getWidth()/scale, image.getHeight()/scale, true);
         File file_path;
         try{
             file_path = new File(folderDir);
@@ -154,7 +161,8 @@ public class DbAdapter {
             }
             FileOutputStream out = new FileOutputStream(folderDir+file_name);
 
-            bitmap.compress(Bitmap.CompressFormat.PNG, 8, out);
+            newImage.compress(Bitmap.CompressFormat.PNG, 8, out);
+            out.flush();
             out.close();
 
             isSave = true;
@@ -187,7 +195,7 @@ public class DbAdapter {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_TITLE, title);
 
-        String imagePath = saveBitmaptoJpeg(image, VOLUNTEER_FOLDER, Long.toString(lastVId));
+        String imagePath = saveBitmaptoPng(image, VOLUNTEER_FOLDER, Long.toString(lastVId));
         if(imagePath!=null){
             initialValues.put(KEY_IMAGE, imagePath);
         }
@@ -257,6 +265,12 @@ public class DbAdapter {
         return getVolunteerJoin(fetchRow(VOLUNTEER_TABLE, VOLUNTEER_COL, num));
     }
 
+    public boolean changeVolunteerJoin(long num) {
+        ContentValues newValues = new ContentValues();
+        newValues.put(KEY_JOIN_POINT, 1);
+        return mDb.update(VOLUNTEER_TABLE, newValues, KEY_NUMBER + "="+"'" + Long.toString(num) + "'", null) > 0;
+    }
+
     private Date getVolunteerStartDate(Cursor cur) {
         return StringToDate(cur.getString(FIND_BY_VOLUNTEER_START_DATE));
     }
@@ -310,6 +324,17 @@ public class DbAdapter {
 
         lastDId = mDb.insert(DONATION_TABLE, null, initialValues);
         return lastDId;
+    }
+
+
+    public boolean addDonationPoint(long num, int point){
+        if(!addUserPoint(num, -1*point)) return false;
+
+        ContentValues newValues = new ContentValues();
+        newValues.put(KEY_JOIN_POINT, getDonationJoinPoint(num)+point);
+        newValues.put(KEY_POINT, getDonationPoint(num)+point);
+
+        return mDb.update(DONATION_TABLE, newValues, KEY_NUMBER + "="+"'" + Long.toString(num) + "'", null) > 0;
     }
 
     public boolean deleteDonation(long num) {
@@ -380,11 +405,10 @@ public class DbAdapter {
         return donationList;
     }
 
-
     public long createUserInfo(String title, Bitmap image, int point) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_TITLE, title);
-        String imagePath = saveBitmaptoJpeg(image, USER_FOLDER, Long.toString(lastUId));
+        String imagePath = saveBitmaptoPng(image, USER_FOLDER, Long.toString(lastUId));
         if(imagePath!=null){
             initialValues.put(KEY_IMAGE, imagePath);
         }
@@ -398,7 +422,6 @@ public class DbAdapter {
         return mDb.delete(DONATION_TABLE, KEY_NUMBER + "=" + "'" + Long.toString(num) + "'",
                 null) > 0;
     }
-
 
     private String getUserName(Cursor cur) {
         return cur.getString(FIND_BY_USER_NAME);
@@ -420,6 +443,14 @@ public class DbAdapter {
     }
     public int getUserPoint(long num) {
         return getVolunteerPoint(fetchRow(USER_TABLE, USER_COL, num));
+    }
+
+    public boolean addUserPoint(long num, int newPoint){
+        ContentValues newValues = new ContentValues();
+        int oriPoint = getUserPoint(num);
+        if(oriPoint+newPoint<0) return false;
+        newValues.put(KEY_POINT, oriPoint+newPoint);
+        return mDb.update(USER_TABLE, newValues, KEY_NUMBER + "="+"'" + Long.toString(num) + "'", null) > 0;
     }
 
     private UserInfo getUserInfo(Cursor cur) {
