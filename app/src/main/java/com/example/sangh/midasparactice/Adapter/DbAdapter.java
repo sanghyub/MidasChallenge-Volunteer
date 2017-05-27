@@ -265,6 +265,12 @@ public class DbAdapter {
         return getVolunteerJoin(fetchRow(VOLUNTEER_TABLE, VOLUNTEER_COL, num));
     }
 
+    public boolean changeVolunteerJoin(long num) {
+        ContentValues newValues = new ContentValues();
+        newValues.put(KEY_JOIN_POINT, 1);
+        return mDb.update(VOLUNTEER_TABLE, newValues, KEY_NUMBER + "="+"'" + Long.toString(num) + "'", null) > 0;
+    }
+
     private Date getVolunteerStartDate(Cursor cur) {
         return StringToDate(cur.getString(FIND_BY_VOLUNTEER_START_DATE));
     }
@@ -318,6 +324,17 @@ public class DbAdapter {
 
         lastDId = mDb.insert(DONATION_TABLE, null, initialValues);
         return lastDId;
+    }
+
+
+    public boolean addDonationPoint(long num, int point){
+        if(!addUserPoint(num, -1*point)) return false;
+
+        ContentValues newValues = new ContentValues();
+        newValues.put(KEY_JOIN_POINT, getDonationJoinPoint(num)+point);
+        newValues.put(KEY_POINT, getDonationPoint(num)+point);
+
+        return mDb.update(DONATION_TABLE, newValues, KEY_NUMBER + "="+"'" + Long.toString(num) + "'", null) > 0;
     }
 
     public boolean deleteDonation(long num) {
@@ -388,7 +405,6 @@ public class DbAdapter {
         return donationList;
     }
 
-
     public long createUserInfo(String title, Bitmap image, int point) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_TITLE, title);
@@ -406,7 +422,6 @@ public class DbAdapter {
         return mDb.delete(DONATION_TABLE, KEY_NUMBER + "=" + "'" + Long.toString(num) + "'",
                 null) > 0;
     }
-
 
     private String getUserName(Cursor cur) {
         return cur.getString(FIND_BY_USER_NAME);
@@ -428,6 +443,14 @@ public class DbAdapter {
     }
     public int getUserPoint(long num) {
         return getVolunteerPoint(fetchRow(USER_TABLE, USER_COL, num));
+    }
+
+    public boolean addUserPoint(long num, int newPoint){
+        ContentValues newValues = new ContentValues();
+        int oriPoint = getUserPoint(num);
+        if(oriPoint+newPoint<0) return false;
+        newValues.put(KEY_POINT, oriPoint+newPoint);
+        return mDb.update(USER_TABLE, newValues, KEY_NUMBER + "="+"'" + Long.toString(num) + "'", null) > 0;
     }
 
     private UserInfo getUserInfo(Cursor cur) {
