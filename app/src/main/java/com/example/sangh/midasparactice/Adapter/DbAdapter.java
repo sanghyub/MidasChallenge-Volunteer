@@ -141,11 +141,18 @@ public class DbAdapter {
         mDbHelper.close();
     }
 
-    public String saveBitmaptoJpeg(Bitmap bitmap, String folder, String name){
+    public String saveBitmaptoPng(Bitmap image, String folder, String name){
         Boolean isSave = false;
-        String folderDir = mCtx.getApplicationContext().getFilesDir().getAbsolutePath()+folder;
+        String folderDir = mCtx.getFilesDir().getAbsolutePath()+folder;
         String file_name = name+".png";
+        int minImageSize = 118;
 
+
+        int scale = 1;
+        if( image.getHeight() > minImageSize || image.getWidth() > minImageSize ) {
+            scale = (int)Math.pow(  2,  (int)Math.round( Math.log( minImageSize / (double)Math.max( image.getHeight(), image.getWidth() ) ) / Math.log( 0.5 ) ) );
+        }
+        Bitmap newImage = Bitmap.createScaledBitmap(image, image.getWidth()/scale, image.getHeight()/scale, true);
         File file_path;
         try{
             file_path = new File(folderDir);
@@ -154,7 +161,8 @@ public class DbAdapter {
             }
             FileOutputStream out = new FileOutputStream(folderDir+file_name);
 
-            bitmap.compress(Bitmap.CompressFormat.PNG, 8, out);
+            newImage.compress(Bitmap.CompressFormat.PNG, 8, out);
+            out.flush();
             out.close();
 
             isSave = true;
@@ -187,7 +195,7 @@ public class DbAdapter {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_TITLE, title);
 
-        String imagePath = saveBitmaptoJpeg(image, VOLUNTEER_FOLDER, Long.toString(lastVId));
+        String imagePath = saveBitmaptoPng(image, VOLUNTEER_FOLDER, Long.toString(lastVId));
         if(imagePath!=null){
             initialValues.put(KEY_IMAGE, imagePath);
         }
@@ -384,7 +392,7 @@ public class DbAdapter {
     public long createUserInfo(String title, Bitmap image, int point) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_TITLE, title);
-        String imagePath = saveBitmaptoJpeg(image, USER_FOLDER, Long.toString(lastUId));
+        String imagePath = saveBitmaptoPng(image, USER_FOLDER, Long.toString(lastUId));
         if(imagePath!=null){
             initialValues.put(KEY_IMAGE, imagePath);
         }
