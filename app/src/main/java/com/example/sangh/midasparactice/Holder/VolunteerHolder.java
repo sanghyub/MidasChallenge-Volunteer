@@ -44,8 +44,8 @@ public class VolunteerHolder  extends BaseViewHolder<Volunteer> implements View.
     public void onBindView(final Volunteer volunteer) {
         mVolunteer=volunteer;
         title.setText(volunteer.getTitle());
-        //date.setText(DbAdapter.getInstance().DateToString(volunteer.getStartDate()) +" ~ " + DbAdapter.getInstance().DateToString(volunteer.getEndDate()));
-        date.setText("2017-05-24"+ " ~ " + "2017-05-27");
+        date.setText(DbAdapter.getInstance().DateToString(volunteer.getStartDate()) +" ~ " + DbAdapter.getInstance().DateToString(volunteer.getEndDate()));
+        //date.setText("2017-05-24"+ " ~ " + "2017-05-27");
         //img.setImageBitmap(volunteer.getImg());
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,9 +71,9 @@ public class VolunteerHolder  extends BaseViewHolder<Volunteer> implements View.
     public void onClick(View v) {
         Intent intent =new Intent(mContext, VolunteerDetailActivity.class);
         intent.putExtra("title", mVolunteer.getTitle());
-        intent.putExtra("img", mVolunteer.getImg());
-        intent.putExtra("startDate", mVolunteer.getStartDate());
-        intent.putExtra("endDate", mVolunteer.getEndDate());
+        //intent.putExtra("img", mVolunteer.getImg());
+        intent.putExtra("startDate", DbAdapter.getInstance().DateToString(mVolunteer.getStartDate()));
+        intent.putExtra("endDate", DbAdapter.getInstance().DateToString(mVolunteer.getEndDate()));
         intent.putExtra("contents", mVolunteer.getContents());
         intent.putExtra("point", mVolunteer.getPoint());
         mContext.startActivity(intent);

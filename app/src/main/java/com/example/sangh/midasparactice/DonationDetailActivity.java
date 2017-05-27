@@ -16,6 +16,7 @@ public class DonationDetailActivity extends AppCompatActivity {
     private TextView dTotalPoint;
     private Bitmap dImage;
     private String title;
+
     private String contents;
     private int totalPoint;
     private String history;
@@ -31,6 +32,7 @@ public class DonationDetailActivity extends AppCompatActivity {
         dContent = (TextView)findViewById(R.id.donation_details_content);
         dPoint = (TextView)findViewById(R.id.donation_detail_point);
         dTotalPoint =(TextView)findViewById(R.id.donation_detail_total_point);
+        dResult =(TextView)findViewById(R.id.donation_detail_history); 
 
         Intent intent=getIntent();
         title=intent.getExtras().getString("title");
@@ -44,8 +46,6 @@ public class DonationDetailActivity extends AppCompatActivity {
         dTotalPoint.setText(totalPoint+"");
         dContent.setText(contents);
         dResult.setText(history);
-
-
 
     }
 }
