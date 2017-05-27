@@ -92,7 +92,7 @@ public class DbAdapter {
     private final Context mCtx; // ?
 
     private static long lastVId, lastDId, lastUId;
-    private static final SimpleDateFormat dbDataFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private static final SimpleDateFormat dbDataFormat = new SimpleDateFormat("yyyy/MM/dd");
 
     private static DbAdapter mInstance = null;
 
