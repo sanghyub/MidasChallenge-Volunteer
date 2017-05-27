@@ -138,11 +138,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DbAdapter.getInstance().createVolunteer(Dummy.vol4_title, BitmapFactory.decodeResource(this.getResources(), R.drawable.vol4), 1500, Dummy.vol4_comments, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
         DbAdapter.getInstance().createVolunteer(Dummy.vol5_title, BitmapFactory.decodeResource(this.getResources(), R.drawable.vol5), 1300, Dummy.vol5_comments, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
 
-        DbAdapter.getInstance().createDonation(Dummy.don1_title,0, 200, Dummy.don1_contents, "history1");
-        DbAdapter.getInstance().createDonation(Dummy.don2_title,0, 400, Dummy.don2_contents, "history2");
-        DbAdapter.getInstance().createDonation(Dummy.don3_title,0, 500, Dummy.don3_contents, "history3");
-        DbAdapter.getInstance().createDonation(Dummy.don4_title,0, 400, Dummy.don4_contents, "history2");
-        DbAdapter.getInstance().createDonation(Dummy.don5_title,0, 500, Dummy.don5_contents, "history3");
+        DbAdapter.getInstance().createDonation(Dummy.don1_title,0, 200, Dummy.don1_contents, Dummy.don1_hisory1);
+        DbAdapter.getInstance().createDonation(Dummy.don2_title,0, 400, Dummy.don2_contents, Dummy.don1_hisory2);
+        DbAdapter.getInstance().createDonation(Dummy.don3_title,0, 500, Dummy.don3_contents, Dummy.don1_hisory3);
+        DbAdapter.getInstance().createDonation(Dummy.don4_title,0, 400, Dummy.don4_contents, Dummy.don1_hisory4);
+        DbAdapter.getInstance().createDonation(Dummy.don5_title,0, 500, Dummy.don5_contents, Dummy.don1_hisory5);
     }
 }
 

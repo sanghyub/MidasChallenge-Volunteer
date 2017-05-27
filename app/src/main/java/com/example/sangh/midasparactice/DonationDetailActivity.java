@@ -32,8 +32,6 @@ public class DonationDetailActivity extends AppCompatActivity {
         setContentView(R.layout.donation_details);
 
         mToolbar = (Toolbar)findViewById(R.id.toolbar_donation_details);
-
-
         dTitle = (TextView)findViewById(R.id.donation_detail_title);
         dContent = (TextView)findViewById(R.id.donation_details_content);
         dPoint = (TextView)findViewById(R.id.donation_detail_point);
