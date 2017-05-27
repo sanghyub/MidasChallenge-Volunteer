@@ -9,9 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sangh.midasparactice.Adapter.DbAdapter;
 import com.example.sangh.midasparactice.AppLog;
 import com.example.sangh.midasparactice.DonationDetailActivity;
 import com.example.sangh.midasparactice.DonationDialog;
+import com.example.sangh.midasparactice.Fragment.DonationListFragment;
 import com.example.sangh.midasparactice.Model.Donation;
 import com.example.sangh.midasparactice.R;
 
@@ -47,17 +49,16 @@ public class DonationHolder extends BaseViewHolder<Donation> implements View.OnC
             @Override
             public void onClick(View v) {
             DonationDialog dialog = new DonationDialog(mContext, donation.getNum());
-            dialog.getWindow().clearFlags(
-                    WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            WindowManager.LayoutParams params = dialog.getWindow()
-                    .getAttributes();
-            dialog.getWindow().setAttributes(params);
+            dialog.getWindow().clearFlags( WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
                 dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
-                        AppLog.d("a", "aaaaaaaaaaaaaaaaaaaaa");
+                        point.setText(DbAdapter.getInstance().getDonationJoinPoint(donation.getNum())+"");
+                        totalPoint.setText(DbAdapter.getInstance().getDonationPoint(donation.getNum())+"");
                     }
-            }) ;
+                });
+            dialog.getWindow().setAttributes(params);
             dialog.show();
             }
         });
