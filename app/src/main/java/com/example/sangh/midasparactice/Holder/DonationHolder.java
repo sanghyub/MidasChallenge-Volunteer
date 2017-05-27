@@ -1,13 +1,17 @@
 package com.example.sangh.midasparactice.Holder;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sangh.midasparactice.AppLog;
 import com.example.sangh.midasparactice.DonationDetailActivity;
+import com.example.sangh.midasparactice.DonationDialog;
 import com.example.sangh.midasparactice.Model.Donation;
 import com.example.sangh.midasparactice.R;
 
@@ -34,7 +38,7 @@ public class DonationHolder extends BaseViewHolder<Donation> implements View.OnC
     }
 
     @Override
-    public void onBindView(Donation donation) {
+    public void onBindView(final Donation donation) {
         mDonation= donation;
         title.setText(donation.getTitle());
         point.setText(donation.getPoint()+"");
@@ -42,11 +46,24 @@ public class DonationHolder extends BaseViewHolder<Donation> implements View.OnC
         donBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "기부", Toast.LENGTH_LONG).show();
+            DonationDialog dialog = new DonationDialog(mContext, donation.getNum());
+            dialog.getWindow().clearFlags(
+                    WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            WindowManager.LayoutParams params = dialog.getWindow()
+                    .getAttributes();
+            dialog.getWindow().setAttributes(params);
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        AppLog.d("a", "aaaaaaaaaaaaaaaaaaaaa");
+                    }
+            }) ;
+            dialog.show();
             }
         });
 
     }
+
     @Override
     public void onClick(View v){
         Intent intent =new Intent(mContext, DonationDetailActivity.class);
@@ -57,4 +74,5 @@ public class DonationHolder extends BaseViewHolder<Donation> implements View.OnC
         intent.putExtra("history", mDonation.getDonationHistory());
         mContext.startActivity(intent);
     }
+
 }

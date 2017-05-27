@@ -52,7 +52,7 @@ public class DbAdapter {
 
     public static final String[] VOLUNTEER_COL = {KEY_NUMBER, KEY_TITLE, KEY_IMAGE, KEY_POINT, KEY_JOIN_POINT, KEY_CONTENT, KEY_START_DATE, KEY_END_DATE};
     public static final String[] DONATION_COL = {KEY_NUMBER, KEY_TITLE, KEY_POINT, KEY_JOIN_POINT, KEY_CONTENT, KEY_HISTORY};
-    public static final String[] USER_COL = {KEY_NUMBER, KEY_TITLE, KEY_IMAGE, KEY_POINT};
+    public static final String[] USER_COL = {KEY_NUMBER, KEY_NAME, KEY_POINT};
 
     public static final int FIND_BY_NUM = 0;
 
@@ -71,8 +71,7 @@ public class DbAdapter {
     public static final int FIND_BY_DONATION_HISTORY = 5;
 
     public static final int FIND_BY_USER_NAME = 1;
-    public static final int FIND_BY_USER_IMAGE = 2;
-    public static final int FIND_BY_USER_POINT = 3;
+    public static final int FIND_BY_USER_POINT = 2;
 
     private static final String TAG = "DbAdapter";
     private DatabaseHelper mDbHelper;
@@ -84,7 +83,7 @@ public class DbAdapter {
     private static final String DONATION_TABLE_CREATE = "create table "+DONATION_TABLE+"("+KEY_NUMBER+" integer primary key autoincrement,"+KEY_TITLE+" text not null,"
             +KEY_POINT+" integer not null,"+KEY_JOIN_POINT+" integer not null,"+KEY_CONTENT+" text not null,"+KEY_HISTORY+" text not null);";
 
-    private static final String USER_TABLE_CREATE = "create table "+USER_TABLE+"("+KEY_NUMBER+" integer primary key autoincrement,"+KEY_NAME+" text not null,"+KEY_IMAGE+" text not null,"
+    private static final String USER_TABLE_CREATE = "create table "+USER_TABLE+"("+KEY_NUMBER+" integer primary key autoincrement,"+KEY_NAME+" text not null,"
             +KEY_POINT+" integer not null);";
 
     private static final int DATABASE_VERSION = 1;
@@ -118,7 +117,6 @@ public class DbAdapter {
 
     public DbAdapter(Context ctx) {
         this.mCtx = ctx;
-        lastDId = lastVId = lastUId = 0;
     }
 
     public static DbAdapter getInstance(Context ctx) {
@@ -195,6 +193,7 @@ public class DbAdapter {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_TITLE, title);
 
+        lastVId = getLastID(VOLUNTEER_TABLE, VOLUNTEER_COL);
         String imagePath = saveBitmaptoPng(image, VOLUNTEER_FOLDER, Long.toString(lastVId));
         if(imagePath!=null){
             initialValues.put(KEY_IMAGE, imagePath);
@@ -205,8 +204,7 @@ public class DbAdapter {
         initialValues.put(KEY_START_DATE, DateToString(startDate));
         initialValues.put(KEY_END_DATE, DateToString(endDate));
 
-        lastVId = mDb.insert(VOLUNTEER_TABLE, null, initialValues);
-        return lastVId;
+        return mDb.insert(VOLUNTEER_TABLE, null, initialValues);
     }
 
     public boolean deleteVolunteer(long num) {
@@ -214,9 +212,13 @@ public class DbAdapter {
                 null) > 0;
     }
 
+    public long getLastID(String table, String[] columns){
+        Cursor all = fetchAllRows(table, columns);
+        return all.getCount();
+    }
+
     public Cursor fetchAllRows(String table, String[] columns) {
         return mDb.query(table, columns, null, null, null, null, null);
-
     }
 
     public Cursor fetchRow(String table, String[] columns, long num) throws SQLException {
@@ -322,13 +324,12 @@ public class DbAdapter {
         initialValues.put(KEY_CONTENT, content);
         initialValues.put(KEY_HISTORY, history);
 
-        lastDId = mDb.insert(DONATION_TABLE, null, initialValues);
-        return lastDId;
+        return mDb.insert(DONATION_TABLE, null, initialValues);
     }
 
 
     public boolean addDonationPoint(long num, int point){
-        if(!addUserPoint(num, -1*point)) return false;
+        if(!addUserPoint(1, -1*point)) return false;
 
         ContentValues newValues = new ContentValues();
         newValues.put(KEY_JOIN_POINT, getDonationJoinPoint(num)+point);
@@ -405,19 +406,13 @@ public class DbAdapter {
         return donationList;
     }
 
-    public long createUserInfo(String title, int point) {
+
+    public long createUserInfo(String name, int point) {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_TITLE, title);
-        /*
-        String imagePath = saveBitmaptoPng(image, USER_FOLDER, Long.toString(lastUId));
-        if(imagePath!=null){
-            initialValues.put(KEY_IMAGE, imagePath);
-        }
-        */
+        initialValues.put(KEY_NAME, name);
         initialValues.put(KEY_POINT, point);
 
-        lastUId = mDb.insert(USER_TABLE, null, initialValues);
-        return lastUId;
+        return mDb.insert(USER_TABLE, null, initialValues);
     }
 
     public boolean deleteUserInfo(long num) {
@@ -432,19 +427,11 @@ public class DbAdapter {
         return getUserName(fetchRow(USER_TABLE, USER_COL, num));
     }
 
-    private Bitmap getUserImage(Cursor cur) {
-        Bitmap image = BitmapFactory.decodeFile(cur.getString(FIND_BY_USER_IMAGE));
-        return image;
-    }
-    public Bitmap getUserImage(long num) {
-        return getVolunteerImage(fetchRow(USER_TABLE, USER_COL, num));
-    }
-
     private int getUserPoint(Cursor cur) {
         return cur.getInt(FIND_BY_USER_POINT);
     }
     public int getUserPoint(long num) {
-        return getVolunteerPoint(fetchRow(USER_TABLE, USER_COL, num));
+        return getUserPoint(fetchRow(USER_TABLE, USER_COL, num));
     }
 
     public boolean addUserPoint(long num, int newPoint){
@@ -455,10 +442,9 @@ public class DbAdapter {
         return mDb.update(USER_TABLE, newValues, KEY_NUMBER + "="+"'" + Long.toString(num) + "'", null) > 0;
     }
 
-    private UserInfo getUserInfo(Cursor cur) {
+    public UserInfo getUserInfo(Cursor cur) {
         UserInfo newUser= new UserInfo();
         newUser.setNumber(getNumber(cur));
-        newUser.setUserImage(getUserImage(cur));
         newUser.setPoint(getUserPoint(cur));
         return newUser;
     }
