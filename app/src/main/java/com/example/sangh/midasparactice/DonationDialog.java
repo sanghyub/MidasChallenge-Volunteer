@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.sangh.midasparactice.Adapter.DbAdapter;
+import com.example.sangh.midasparactice.Fragment.DonationListFragment;
 
 /**
  * Created by bgh29 on 2017-05-28.
@@ -42,7 +43,6 @@ public class DonationDialog extends Dialog implements DialogInterface, View.OnCl
         if(v==okBtn) {
             DbAdapter.getInstance().addDonationPoint(donationNum, Integer.parseInt(donationEditText.getText().toString()));
         }
-        dismiss();
+        cancel();
     }
-
 }
