@@ -12,22 +12,40 @@ public class DonationDetailActivity extends AppCompatActivity {
     private TextView dTitle;
     private TextView dContent;
     private TextView dResult;
+    private TextView dPoint;
+    private TextView dTotalPoint;
     private Bitmap dImage;
+    private String title;
+    private String contents;
+    private int totalPoint;
+    private String history;
+    private int point;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.donation_details);
 
-        dTitle = (TextView)findViewById(R.id.donationTitle);
-        dContent = (TextView)findViewById(R.id.donationContent);
-        dResult = (TextView)findViewById(R.id.donationResult);
+        dTitle = (TextView)findViewById(R.id.donation_detail_title);
+        dContent = (TextView)findViewById(R.id.donation_details_content);
+        dPoint = (TextView)findViewById(R.id.donation_detail_point);
+        dTotalPoint =(TextView)findViewById(R.id.donation_detail_total_point);
 
-        Intent intent=new Intent(this.getIntent());
-        String title= "이거이거 되느?";
-//                intent.getStringExtra("text");
+        Intent intent=getIntent();
+        title=intent.getExtras().getString("title");
+        point=intent.getExtras().getInt("point");
+        totalPoint =intent.getExtras().getInt("totalPoint");
+        history = intent.getExtras().getString("history");
+        contents = intent.getExtras().getString("contents");
 
         dTitle.setText(title);
+        dPoint.setText(point+"");
+        dTotalPoint.setText(totalPoint+"");
+        //dContent.setText(contents);
+
+
+
     }
 }
 
