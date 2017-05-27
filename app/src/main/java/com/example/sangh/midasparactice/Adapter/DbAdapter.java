@@ -406,10 +406,10 @@ public class DbAdapter {
         return donationList;
     }
 
+
     public long createUserInfo(String name, int point) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NAME, name);
-
         initialValues.put(KEY_POINT, point);
 
         return mDb.insert(USER_TABLE, null, initialValues);

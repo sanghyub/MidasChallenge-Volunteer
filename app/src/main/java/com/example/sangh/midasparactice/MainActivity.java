@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.sangh.midasparactice.Adapter.DbAdapter;
 import com.example.sangh.midasparactice.Adapter.TabPagerAdapter;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ViewPager viewPager;
     private  NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout ;
+    private TextView mScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +39,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
 
+
         mDrawerLayout =(DrawerLayout)findViewById(R.id.drawer_layout);
+
+
         // Initializing the TabLayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Volunteer"));
         tabLayout.addTab(tabLayout.newTab().setText("Donation"));
         tabLayout.addTab(tabLayout.newTab().setText("Tab Three"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
 
         // Initializing ViewPager
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -143,6 +149,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DbAdapter.getInstance().createDonation(Dummy.don3_title,0, 500, Dummy.don3_contents, Dummy.don1_hisory3);
         DbAdapter.getInstance().createDonation(Dummy.don4_title,0, 400, Dummy.don4_contents, Dummy.don1_hisory4);
         DbAdapter.getInstance().createDonation(Dummy.don5_title,0, 500, Dummy.don5_contents, Dummy.don1_hisory5);
+
+        //DbAdapter.getInstance().createUserInfo("이상협",0);
     }
 }
 
