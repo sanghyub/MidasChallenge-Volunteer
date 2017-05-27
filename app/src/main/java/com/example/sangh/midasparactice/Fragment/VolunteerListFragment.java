@@ -30,7 +30,7 @@ public class VolunteerListFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        DbAdapter.getInstance(getContext()).open();
+
        // long testnum = DbAdapter.getInstance().createVolunteer("title1", BitmapFactory.decodeResource(this.getResources(), R.drawable.main_tree), 300, "content1", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
        // testnum = DbAdapter.getInstance().createVolunteer("title2", BitmapFactory.decodeResource(this.getResources(), R.drawable.main_tree), 200, "content2", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
        // testnum = DbAdapter.getInstance().createVolunteer("title3", BitmapFactory.decodeResource(this.getResources(), R.drawable.main_tree), 100, "content3", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );

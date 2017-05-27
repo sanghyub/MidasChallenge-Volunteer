@@ -12,7 +12,7 @@ public class UserInfo {
     private int point;
     private Bitmap userImage;
 
-    UserInfo(){
+    public UserInfo(){
 
     }
 
