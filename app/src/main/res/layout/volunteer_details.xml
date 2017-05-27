@@ -17,6 +17,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/volunteer_detail_title"
                 android:layout_width="match_parent"
                 android:layout_height="30dip"
                 android:background="#ff0000"
@@ -24,6 +25,7 @@
 
 
             <ImageView
+                android:id="@+id/volunteer_detail_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_margin="10dp"
@@ -31,9 +33,11 @@
                 android:background="@mipmap/ic_launcher" />
 
             <TextView
+                android:id="@+id/volunteer_detail_content"
                 android:layout_width="match_parent"
                 android:background="#0000ff"
-                android:text="내용 들어갈곳 " />
+                android:text="내용 들어갈곳 "
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </ScrollView>
@@ -43,7 +47,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
-        <Button android:layout_width="match_parent"
+        <Button
+            android:id="@+id/volunteer_detail_btn"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="신청하기" />
     </LinearLayout>

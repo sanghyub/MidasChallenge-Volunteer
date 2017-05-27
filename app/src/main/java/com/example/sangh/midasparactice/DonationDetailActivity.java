@@ -1,6 +1,5 @@
 package com.example.sangh.midasparactice;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,21 +12,27 @@ public class DonationDetailActivity extends AppCompatActivity {
     private TextView dContent;
     private TextView dResult;
     private Bitmap dImage;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.donation_details);
 
-        dTitle = (TextView)findViewById(R.id.donationTitle);
-        dContent = (TextView)findViewById(R.id.donationContent);
-        dResult = (TextView)findViewById(R.id.donationResult);
+        dTitle = (TextView)findViewById(R.id.donation_detail_title);
+        dContent = (TextView)findViewById(R.id.donation_detail_content);
+        dResult = (TextView)findViewById(R.id.donation_detail_result);
 
-        Intent intent=new Intent(this.getIntent());
-        String title= "이거이거 되느?";
-//                intent.getStringExtra("text");
+//        intent.putExtra("title", mDonation.getTitle());
+//        intent.putExtra("point", mDonation.getPoint());
+//        intent.putExtra("totalPoint", mDonation.getTotalPoint());
+//        intent.putExtra("contents", mDonation.getContents());
+//        intent.putExtra("history", mDonation.getDonationHistory());
 
-        dTitle.setText(title);
+//        Intent intent = getIntent();
+//        title = intent.getExtras().getString("title");
+
+//        dTitle.setText(s);
     }
 }
 
