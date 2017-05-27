@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.sangh.midasparactice.Adapter.DbAdapter;
 import com.example.sangh.midasparactice.Model.Volunteer;
 import com.example.sangh.midasparactice.R;
 import com.example.sangh.midasparactice.VolunteerDetailActivity;
@@ -42,8 +44,9 @@ public class VolunteerHolder  extends BaseViewHolder<Volunteer> implements View.
     public void onBindView(final Volunteer volunteer) {
         mVolunteer=volunteer;
         title.setText(volunteer.getTitle());
-        //date.setText(volunteer.getStartDate().toString() +" ~ " + volunteer.getEndDate().toString());
+        //date.setText(DbAdapter.getInstance().DateToString(volunteer.getStartDate()) +" ~ " + DbAdapter.getInstance().DateToString(volunteer.getEndDate()));
         date.setText("2017-05-24"+ " ~ " + "2017-05-27");
+        //img.setImageBitmap(volunteer.getImg());
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
