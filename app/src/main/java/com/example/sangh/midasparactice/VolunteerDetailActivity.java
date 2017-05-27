@@ -1,5 +1,6 @@
 package com.example.sangh.midasparactice;
 
+
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.TextView;
  */
 
 public class VolunteerDetailActivity extends AppCompatActivity {
+
     private TextView vTitle;
     private TextView vContent;
     private Bitmap vImage;

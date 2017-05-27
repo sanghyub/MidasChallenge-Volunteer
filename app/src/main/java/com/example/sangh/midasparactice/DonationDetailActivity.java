@@ -1,5 +1,6 @@
 package com.example.sangh.midasparactice;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +12,16 @@ public class DonationDetailActivity extends AppCompatActivity {
     private TextView dTitle;
     private TextView dContent;
     private TextView dResult;
+    private TextView dPoint;
+    private TextView dTotalPoint;
     private Bitmap dImage;
     private String title;
+
+    private String contents;
+    private int totalPoint;
+    private String history;
+    private int point;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,19 +29,22 @@ public class DonationDetailActivity extends AppCompatActivity {
         setContentView(R.layout.donation_details);
 
         dTitle = (TextView)findViewById(R.id.donation_detail_title);
-        dContent = (TextView)findViewById(R.id.donation_detail_content);
-        dResult = (TextView)findViewById(R.id.donation_detail_result);
+        dContent = (TextView)findViewById(R.id.donation_details_content);
+        dPoint = (TextView)findViewById(R.id.donation_detail_point);
+        dTotalPoint =(TextView)findViewById(R.id.donation_detail_total_point);
 
-//        intent.putExtra("title", mDonation.getTitle());
-//        intent.putExtra("point", mDonation.getPoint());
-//        intent.putExtra("totalPoint", mDonation.getTotalPoint());
-//        intent.putExtra("contents", mDonation.getContents());
-//        intent.putExtra("history", mDonation.getDonationHistory());
+        Intent intent=getIntent();
+        title=intent.getExtras().getString("title");
+        point=intent.getExtras().getInt("point");
+        totalPoint =intent.getExtras().getInt("totalPoint");
+        history = intent.getExtras().getString("history");
+        contents = intent.getExtras().getString("contents");
 
-//        Intent intent = getIntent();
-//        title = intent.getExtras().getString("title");
+        dTitle.setText(title);
+        dPoint.setText(point+"");
+        dTotalPoint.setText(totalPoint+"");
+        //dContent.setText(contents);
 
-//        dTitle.setText(s);
     }
 }
 
