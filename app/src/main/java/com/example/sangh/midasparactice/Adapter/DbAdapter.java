@@ -405,13 +405,15 @@ public class DbAdapter {
         return donationList;
     }
 
-    public long createUserInfo(String title, Bitmap image, int point) {
+    public long createUserInfo(String title, int point) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_TITLE, title);
+        /*
         String imagePath = saveBitmaptoPng(image, USER_FOLDER, Long.toString(lastUId));
         if(imagePath!=null){
             initialValues.put(KEY_IMAGE, imagePath);
         }
+        */
         initialValues.put(KEY_POINT, point);
 
         lastUId = mDb.insert(USER_TABLE, null, initialValues);

@@ -79,6 +79,7 @@ public class VolunteerDetailActivity extends AppCompatActivity {
                 mBtn.setText("이미 참여중인 봉사");
                 mBtn.setBackgroundColor(Color.rgb(0,153,255));
                 mBtn.setEnabled(false);
+                DbAdapter.getInstance().addUserPoint(number,mPoint);
                 DbAdapter.getInstance().changeVolunteerJoin(number);
                 flag=1;
             }
