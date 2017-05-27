@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/donationTitle"
+                android:layout_width="match_parent"
+                android:layout_height="30dip"
+                android:background="#ff0000"
+                android:text="타이틀 들어갈곳" />
+
+
+            <ImageView
+                android:id="@+id/donationImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:background="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:id="@+id/donationContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000ff"
+                android:text="내용" />
+
+            <TextView
+                android:id="@+id/donationResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000ff"
+                android:text="어디다가 사용했는지" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

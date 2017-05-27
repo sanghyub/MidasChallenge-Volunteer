@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dip"
+                android:background="#ff0000"
+                android:text="타이틀 들어갈곳" />
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:background="#0000ff"
+                android:text="내용 들어갈곳 " />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <Button android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="신청하기" />
+    </LinearLayout>
+</LinearLayout>
