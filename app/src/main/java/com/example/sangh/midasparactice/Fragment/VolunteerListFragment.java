@@ -31,9 +31,9 @@ public class VolunteerListFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-       // long testnum = DbAdapter.getInstance().createVolunteer("title1", BitmapFactory.decodeResource(this.getResources(), R.drawable.main_tree), 300, "content1", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
-       // testnum = DbAdapter.getInstance().createVolunteer("title2", BitmapFactory.decodeResource(this.getResources(), R.drawable.main_tree), 200, "content2", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
-       // testnum = DbAdapter.getInstance().createVolunteer("title3", BitmapFactory.decodeResource(this.getResources(), R.drawable.main_tree), 100, "content3", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
+       long testnum = DbAdapter.getInstance().createVolunteer("title1", BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher), 300, "content1", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
+        testnum = DbAdapter.getInstance().createVolunteer("title2", BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher), 200, "content2", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
+        testnum = DbAdapter.getInstance().createVolunteer("title3", BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher), 100, "content3", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
 
     }
 
@@ -44,7 +44,7 @@ public class VolunteerListFragment extends Fragment{
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
-       // dummyData();
+        dummyData();
         return v;
     }
 
@@ -55,8 +55,10 @@ public class VolunteerListFragment extends Fragment{
     }
 
     public void dummyData(){
-       // mVolunteerArrayList= DbAdapter.getInstance().getVolunteerList();
-
+        ArrayList<Volunteer> arrayList =DbAdapter.getInstance().getVolunteerList();
+        for(Volunteer volunteer : arrayList){
+            mVolunteerArrayList.add(volunteer);
+        }
         mAdapter.notifyDataSetChanged();
     }
 }

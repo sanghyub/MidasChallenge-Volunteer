@@ -30,7 +30,6 @@ public class DonationListFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        DbAdapter.getInstance(getContext()).open();
         long testnum = DbAdapter.getInstance().createDonation("title1",100, 300, "content1", "history1");
         testnum = DbAdapter.getInstance().createDonation("title2",200, 400, "content2", "history2");
         testnum = DbAdapter.getInstance().createDonation("title3",300, 500, "content3", "history3");
@@ -55,15 +54,12 @@ public class DonationListFragment extends Fragment{
     }
 
     public void dummyData(){
-        mDonationItems= DbAdapter.getInstance().getDonationList();
-        /*for(int i=0; i<10; i++){
-            Donation donation =new Donation();
-            donation.setPoint(i);
-            donation.setTotalPoint(i+10000);
+        ArrayList<Donation> arrayList =DbAdapter.getInstance().getDonationList();
+        for(Donation donation : arrayList){
             mDonationItems.add(donation);
         }
-        */
         mAdapter.notifyDataSetChanged();
+
     }
 
 }

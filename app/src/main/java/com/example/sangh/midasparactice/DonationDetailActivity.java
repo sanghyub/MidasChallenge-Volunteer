@@ -42,7 +42,8 @@ public class DonationDetailActivity extends AppCompatActivity {
         dTitle.setText(title);
         dPoint.setText(point+"");
         dTotalPoint.setText(totalPoint+"");
-        //dContent.setText(contents);
+        dContent.setText(contents);
+        dResult.setText(history);
 
 
 
