@@ -20,6 +20,7 @@ import com.example.sangh.midasparactice.Adapter.TabPagerAdapter;
 
 import java.util.Date;
 
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TabLayout tabLayout;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Volunteer"));
         tabLayout.addTab(tabLayout.newTab().setText("Donation"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab Three"));
+        tabLayout.addTab(tabLayout.newTab().setText("Calander"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
@@ -144,9 +145,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DbAdapter.getInstance().createVolunteer(Dummy.vol4_title, BitmapFactory.decodeResource(this.getResources(), R.drawable.vol4), 1500, Dummy.vol4_comments, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
         DbAdapter.getInstance().createVolunteer(Dummy.vol5_title, BitmapFactory.decodeResource(this.getResources(), R.drawable.vol5), 1300, Dummy.vol5_comments, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()) );
 
-        DbAdapter.getInstance().createDonation(Dummy.don1_title,0, 200, Dummy.don1_contents, Dummy.don1_hisory1);
+        DbAdapter.getInstance().createDonation(Dummy.don1_title,20, 200, Dummy.don1_contents, Dummy.don1_hisory1);
         DbAdapter.getInstance().createDonation(Dummy.don2_title,0, 400, Dummy.don2_contents, Dummy.don1_hisory2);
-        DbAdapter.getInstance().createDonation(Dummy.don3_title,0, 500, Dummy.don3_contents, Dummy.don1_hisory3);
+        DbAdapter.getInstance().createDonation(Dummy.don3_title,45, 500, Dummy.don3_contents, Dummy.don1_hisory3);
         DbAdapter.getInstance().createDonation(Dummy.don4_title,0, 400, Dummy.don4_contents, Dummy.don1_hisory4);
         DbAdapter.getInstance().createDonation(Dummy.don5_title,0, 500, Dummy.don5_contents, Dummy.don1_hisory5);
 

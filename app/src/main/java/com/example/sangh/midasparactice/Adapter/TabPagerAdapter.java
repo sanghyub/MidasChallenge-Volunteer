@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.sangh.midasparactice.Fragment.CalanderFragment;
 import com.example.sangh.midasparactice.Fragment.DonationListFragment;
 import com.example.sangh.midasparactice.Fragment.VolunteerListFragment;
 
@@ -33,8 +34,8 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                 DonationListFragment tabFragment2 = new DonationListFragment();
                 return tabFragment2;
             case 2:
-                DonationListFragment tabFragment3 = new DonationListFragment();
-                return tabFragment3;
+                CalanderFragment tabFragment3 = new CalanderFragment();
+                return  tabFragment3;
 
             default:
                 return null;

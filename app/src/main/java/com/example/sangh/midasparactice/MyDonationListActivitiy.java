@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.sangh.midasparactice.Adapter.DbAdapter;
 import com.example.sangh.midasparactice.Adapter.DonationAdapter;
@@ -26,6 +27,8 @@ public class MyDonationListActivitiy extends AppCompatActivity {
     private MyDonationAdapter mAdapter;
     private ArrayList<Donation> myDonationArrayList = new ArrayList<>();
     private Toolbar mToolbar;
+    private static View mRootView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
