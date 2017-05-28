@@ -143,7 +143,7 @@ public class DbAdapter {
         Boolean isSave = false;
         String folderDir = mCtx.getFilesDir().getAbsolutePath()+folder;
         String file_name = name+".png";
-        int minImageSize = 118;
+        int minImageSize = 150;
 
 
         int scale = 1;
