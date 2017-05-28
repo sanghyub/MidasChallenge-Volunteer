@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DbAdapter.getInstance().createDonation(Dummy.don4_title,0, 400, Dummy.don4_contents, Dummy.don1_hisory4);
         DbAdapter.getInstance().createDonation(Dummy.don5_title,0, 500, Dummy.don5_contents, Dummy.don1_hisory5);
 
-         DbAdapter.getInstance().createUserInfo("이상협",0);
+         DbAdapter.getInstance().createUserInfo("이상협", 50000);
     }
 }
 
